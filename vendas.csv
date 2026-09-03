@@ -1,0 +1,31 @@
+id,cliente,cidade,produto,categoria,quantidade,preco_unitario,vendedor,data_venda,forma_pagamento 
+1,Ana Souza,São Paulo,Notebook,Informática,1,3500.00,Carlos,2026-07-01,Cartão 
+2,Bruno Lima,Santos,Mouse,Informática,2,80.00,Mariana,2026-07-01,PIX 
+3,Carla Mendes,São Paulo,Teclado,Informática,1,150.00,Carlos,2026-07-02,PIX 
+4,Daniel Rocha,Campinas,Monitor,Informática,2,1200.00,Fernanda,2026-07-03,Cartão 
+5,Eduardo Silva,Sorocaba,Cadeira Gamer,Móveis,1,950.00,Mariana,2026-07-03,Boleto 
+6,Fernanda Costa,São Paulo,Mesa para Escritório,Móveis,1,700.00,Carlos,2026-07-04,PIX 
+7,Gabriel Martins,Campinas,Webcam,Informática,3,250.00,Fernanda,2026-07-05,Cartão
+8,Helena Alves,Santos,Headset,Informática,2,320.00,Mariana,2026-07-05,PIX 
+9,Igor Ribeiro,São Paulo,Impressora,Informática,1,1100.00,Carlos,2026-07-06,Boleto 
+10,Juliana Gomes,Sorocaba,Estante,Móveis,2,450.00,Fernanda,2026-07-07,Cartão 
+11,Karen Oliveira,Campinas,Notebook,Informática,1,4200.00,Mariana,2026-07-08,PIX 
+12,Lucas Ferreira,São Paulo,Mouse,Informática,5,75.00,Carlos,2026-07-09,PIX 
+13,Mariana Lopes,Santos,Cadeira de Escritório,Móveis,2,650.00,Fernanda,2026-07-10,Boleto 
+14,Nicolas Santos,São Paulo,Monitor,Informática,1,1350.00,Mariana,2026-07-11,Cartão 
+15,Olivia Pereira,Campinas,Teclado,Informática,4,140.00,Carlos,2026-07-12,PIX 
+16,Paulo Almeida,Sorocaba,Notebook,Informática,2,3800.00,Fernanda,2026-07-13,Cartão 
+17,Renata Barros,São Paulo,Mesa para Escritório,Móveis,1,850.00,Mariana,2026-07-14,Boleto 
+18,Ricardo Nunes,Santos,Webcam,Informática,2,220.00,Carlos,2026-07-15,PIX 
+19,Sabrina Melo,Campinas,Headset,Informática,3,300.00,Fernanda,2026-07-16,Cartão 
+20,Tiago Ramos,São Paulo,Impressora,Informática,1,1250.00,Mariana,2026-07-17,PIX 
+21,Vanessa Dias,Sorocaba,Cadeira Gamer,Móveis,2,1050.00,Carlos,2026-07-18,Cartão 
+22,Wagner Freitas,Santos,Mouse,Informática,4,90.00,Fernanda,2026-07-19,PIX 
+23,Yasmin Cardoso,São Paulo,Notebook,Informática,1,4500.00,Mariana,2026-07-20,Cartão 
+24,Zeca Martins,Campinas,Estante,Móveis,3,480.00,Carlos,2026-07-21,Boleto 
+25,Aline Castro,São Paulo,Monitor,Informática,2,1150.00,Fernanda,2026-07-22,PIX 
+26,Beto Moreira,Santos,Teclado,Informática,2,160.00,Mariana,2026-07-23,Cartão 
+27,Camila Duarte,Sorocaba,Cadeira de Escritório,Móveis,1,720.00,Carlos,2026-07-24,PIX 
+28,Diego Barbosa,São Paulo,Webcam,Informática,4,230.00,Fernanda,2026-07-25,Cartão 
+29,Elisa Fonseca,Campinas,Impressora,Informática,1,980.00,Mariana,2026-07-26,Boleto 
+30,Fábio Moraes,Santos,Mesa para Escritório,Móveis,2,780.00,Carlos,2026-07-27,PIX
