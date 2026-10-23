@@ -146,19 +146,12 @@ st.divider()
 # ==========================================
 
 st.title("📊 Gráficos")
-arquivo = st.file_uploader( type=["csv"])
 
-if arquivo is not None:
-    df = pd.read_csv(
-            arquivo, 
-            sep=";", 
-            encoding="latin1")
-else:
-    df = pd.read_csv(
-            "DADOS_HIDROLOGICOS_HO_2019_01.csv", 
-            sep=";", 
-            encoding="latin1")    
-
+df = pd.read_csv(
+    "https://drive.google.com/file/d/16igHoHdfjGE3ymeYLBm9hmViK0G4hE0Z/view?usp=sharing",
+    sep=";",
+    encoding="latin1"
+)   
     # =============================
     # Gráfico 1
     # =============================
