@@ -151,196 +151,168 @@ df = pd.read_csv(
     "https://raw.githubusercontent.com/Berveloz/Projects/refs/heads/main/DADOS_HIDROLOGICOS_HO_2019_01.csv",
     sep=";",
     encoding="latin1"
-)   
-    # =============================
-    # Gráfico 1
-    # =============================
+)
+
+# =============================
+# Gráfico 1
+# =============================
 
 if (
-        "nom_reservatorio" in df.columns and
-        "val_volumeutil" in df.columns
-    ):
+    "nom_reservatorio" in df.columns and
+    "val_volumeutil" in df.columns
+):
 
-        volume_medio = (
-            df.groupby(
-                "nom_reservatorio",
-                as_index=False
-            )["val_volumeutil"]
-            .mean()
-            .sort_values(
-                "val_volumeutil",
-                ascending=False
-            )
+    volume_medio = (
+        df.groupby(
+            "nom_reservatorio",
+            as_index=False
+        )["val_volumeutil"]
+        .mean()
+        .sort_values(
+            "val_volumeutil",
+            ascending=False
         )
+    )
 
-        fig = px.bar(
-            volume_medio.head(10),
-            x="val_volumeutil",
-            y="nom_reservatorio",
-            orientation="h",
-            title="Top 10 Reservatórios por Volume Útil Médio",
-            labels={
-                "val_volumeutil": "Volume Útil Médio",
-                "nom_reservatorio": "Reservatório"
-            }
-        )
+    fig = px.bar(
+        volume_medio.head(10),
+        x="val_volumeutil",
+        y="nom_reservatorio",
+        orientation="h",
+        title="Top 10 Reservatórios por Volume Útil Médio",
+        labels={
+            "val_volumeutil": "Volume Útil Médio",
+            "nom_reservatorio": "Reservatório"
+        }
+    )
 
-        st.plotly_chart(
-            fig,
-            use_container_width=True
-        )
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
 
-        st.markdown("""
-        O gráfico compara o volume útil médio dos dez reservatórios analisados.
-        Entre eles, SALTO PILAO apresenta o maior valor, ficando acima dos demais.
-        """)
-        
-    # =============================
-    # Gráfico 2
-    # =============================
+    st.markdown("""
+    O gráfico compara o volume útil médio dos dez reservatórios analisados.
+    Entre eles, SALTO PILAO apresenta o maior valor, ficando acima dos demais.
+    """)
 
-    if (
-        "din_instante" in df.columns and
-        "val_vazaoafluente" in df.columns
-    ):
+# =============================
+# Gráfico 2
+# =============================
 
-        df["hora"] = pd.to_datetime(
+if (
+    "din_instante" in df.columns and
+    "val_vazaoafluente" in df.columns
+):
+
+    df["hora"] = pd.to_datetime(
+        df["din_instante"],
+        errors="coerce"
+    ).dt.hour
+
+    vazao_hora = (
+        df.groupby(
+            "hora",
+            as_index=False
+        )["val_vazaoafluente"]
+        .mean()
+    )
+
+    fig = px.line(
+        vazao_hora,
+        x="hora",
+        y="val_vazaoafluente",
+        markers=True,
+        title="Vazão Afluente Média por Hora do Dia",
+        labels={
+            "hora": "Hora do Dia",
+            "val_vazaoafluente": "Vazão Afluente Média"
+        }
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
+
+    st.markdown("""
+    O gráfico apresenta a vazão afluente média ao longo das horas do dia,
+    evidenciando variações ao longo do período analisado.
+    """)
+
+# =============================
+# Dados
+# =============================
+
+with st.expander("🧹 Limpeza de Dados"):
+
+    if "din_instante" in df.columns:
+        df["din_instante"] = pd.to_datetime(
             df["din_instante"],
             errors="coerce"
-        ).dt.hour
-
-        vazao_hora = (
-            df.groupby(
-                "hora",
-                as_index=False
-            )["val_vazaoafluente"]
-            .mean()
         )
 
-        fig = px.line(
-            vazao_hora,
-            x="hora",
-            y="val_vazaoafluente",
-            markers=True,
-            title="Vazão Afluente Média por Hora do Dia",
-            labels={
-                "hora": "Hora do Dia",
-                "val_vazaoafluente": "Vazão Afluente Média"
-            }
+    colunas_numericas = [
+        "val_nivelmontante",
+        "val_niveljusante",
+        "val_volumeutil",
+        "val_vazaoafluente",
+        "val_vazaodefluente",
+        "val_vazaoturbinada",
+        "val_vazaovertida"
+    ]
+
+    for coluna in colunas_numericas:
+        if coluna in df.columns:
+            df[coluna] = pd.to_numeric(
+                df[coluna],
+                errors="coerce"
+            )
+
+    valores_ausentes = df.isnull().sum()
+    duplicados = df.duplicated().sum()
+
+    negativos = {}
+    for coluna in colunas_numericas:
+        if coluna in df.columns:
+            negativos[coluna] = (df[coluna] < 0).sum()
+
+    resumo_numerico = df.describe()
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        st.metric("Quantidade de registros", f"{df.shape[0]:,}")
+
+    with col2:
+        st.metric("Quantidade de colunas", df.shape[1])
+
+    with col3:
+        if "nom_reservatorio" in df.columns:
+            st.metric("Reservatórios únicos", df["nom_reservatorio"].nunique())
+
+    with col4:
+        if "val_vazaoafluente" in df.columns:
+            st.metric("Vazão Média", round(df["val_vazaoafluente"].mean(), 2))
+
+    st.subheader("Visualização dos Dados")
+    st.dataframe(df.head())
+
+    st.subheader("Valores Ausentes")
+    st.dataframe(
+        valores_ausentes.reset_index().rename(
+            columns={"index": "Coluna", 0: "Quantidade de Ausentes"}
         )
+    )
 
-        st.plotly_chart(
-            fig,
-            use_container_width=True
-        )
+    st.subheader("Registros Duplicados")
+    st.write(f"Quantidade de registros duplicados: {duplicados}")
 
-        st.markdown("""
-        O gráfico apresenta a vazão afluente média ao longo das horas do dia,
-        evidenciando variações ao longo do período analisado.
-        """)
+    st.subheader("Valores Negativos Encontrados")
+    st.dataframe(
+        pd.DataFrame(negativos.items(), columns=["Coluna", "Quantidade"])
+    )
 
-    # =============================
-    # Dados
-    # =============================
-
-    with st.expander("🧹 Limpeza de Dados"):
-
-        # Converter data
-        if "din_instante" in df.columns:
-                df["din_instante"] = pd.to_datetime(
-                        df["din_instante"],
-                        errors="coerce"
-                )
-
-        # Colunas numéricas
-        colunas_numericas = [
-                "val_nivelmontante",
-                "val_niveljusante",
-                "val_volumeutil",
-                "val_vazaoafluente",
-                "val_vazaodefluente",
-                "val_vazaoturbinada",
-                "val_vazaovertida"
-        ]
-
-        for coluna in colunas_numericas:
-                if coluna in df.columns:
-                        df[coluna] = pd.to_numeric(
-                                df[coluna],
-                                errors="coerce"
-                        )
-
-        # Valores ausentes
-        valores_ausentes = df.isnull().sum()
-
-        # Duplicados
-        duplicados = df.duplicated().sum()
-
-        # Valores negativos
-        negativos = {}
-
-        for coluna in colunas_numericas:
-                if coluna in df.columns:
-                        negativos[coluna] = (df[coluna] < 0).sum()
-
-        # Resumo estatístico
-        resumo_numerico = df.describe()
-
-        # Métricas
-        col1, col2, col3, col4 = st.columns(4)
-
-        with col1:
-                st.metric(
-                        "Quantidade de registros",
-                        f"{df.shape[0]:,}"
-                )
-
-        with col2:
-                st.metric(
-                        "Quantidade de colunas",
-                        df.shape[1]
-                )
-
-        with col3:
-                if "nom_reservatorio" in df.columns:
-                        st.metric(
-                                "Reservatórios únicos",
-                                df["nom_reservatorio"].nunique()
-                        )
-
-        with col4:
-                if "val_vazaoafluente" in df.columns:
-                        st.metric(
-                                "Vazão Média",
-                                round(
-                                        df["val_vazaoafluente"].mean(),
-                                        2
-                                )
-                        )
-
-        st.subheader("Visualização dos Dados")
-        st.dataframe(df.head())
-
-        st.subheader("Valores Ausentes")
-        st.dataframe(
-                valores_ausentes.reset_index().rename(
-                        columns={
-                                "index": "Coluna",
-                                0: "Quantidade de Ausentes"
-                        }
-                )
-        )
-
-        st.subheader("Registros Duplicados")
-        st.write(f"Quantidade de registros duplicados: {duplicados}")
-
-        st.subheader("Valores Negativos Encontrados")
-        st.dataframe(
-                pd.DataFrame(
-                        negativos.items(),
-                        columns=["Coluna", "Quantidade"]
-                )
-        )
-
-        st.subheader("Resumo Estatístico")
+    st.subheader("Resumo Estatístico")
+    st.dataframe(resumo_numerico)   Estatístico")
         st.dataframe(resumo_numerico)
