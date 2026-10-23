@@ -314,6 +314,4 @@ with st.expander("🧹 Limpeza de Dados"):
     )
 
         st.subheader("Resumo Estatístico")
-        st.dataframe(resumo_numerico)   
-    st.dataframe(resumo_numerico)   Estatístico")
         st.dataframe(resumo_numerico)
