@@ -146,7 +146,7 @@ st.divider()
 # ==========================================
 
 st.title("📊 Gráficos")
-arquivo = st.file_uploader("Trocar CSV (opcional)", type=["csv"])
+arquivo = st.file_uploader( type=["csv"])
 
 if arquivo is not None:
     df = pd.read_csv(
