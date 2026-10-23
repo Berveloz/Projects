@@ -95,7 +95,7 @@ st.sidebar.write('''
                 Bernardo Torquato   
                 Nicolas Prado   
                 Gustavo Henrik  
-                Guilherme Gamon 
+                Gabriel Gamon 
                 Rafael Moreira
 ''')
 # ==========================================
