@@ -312,6 +312,5 @@ with st.expander("🧹 Limpeza de Dados"):
     st.dataframe(
         pd.DataFrame(negativos.items(), columns=["Coluna", "Quantidade"])
     )
-
-        st.subheader("Resumo Estatístico")
-        st.dataframe(resumo_numerico)
+    st.subheader("Resumo Estatístico")
+    st.dataframe(resumo_numerico)
