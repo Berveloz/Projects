@@ -148,7 +148,7 @@ st.divider()
 st.title("📊 Gráficos")
 
 df = pd.read_csv(
-    "https://drive.google.com/file/d/16igHoHdfjGE3ymeYLBm9hmViK0G4hE0Z/view?usp=sharing",
+    "https://drive.google.com/uc?export=download&id=16igHoHdfjGE3ymeYLBm9hmViK0G4hE0Z",
     sep=";",
     encoding="latin1"
 )   
