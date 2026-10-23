@@ -155,7 +155,7 @@ arquivo = st.file_uploader(
 if arquivo is not None:
 
     df = pd.read_csv(
-          "DADOS_HIDROLOGICOS_HO_2019_01.csv", 
+          "https://raw.githubusercontent.com/Berveloz/Projects/refs/heads/main/DADOS_HIDROLOGICOS_HO_2019_01.csv", 
           sep=";", 
           encoding="latin1")   
 
