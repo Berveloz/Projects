@@ -156,7 +156,7 @@ df = pd.read_csv(
     # Gráfico 1
     # =============================
 
-    if (
+if (
         "nom_reservatorio" in df.columns and
         "val_volumeutil" in df.columns
     ):
